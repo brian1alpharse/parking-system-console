@@ -6,140 +6,88 @@ public class Main {
         ParkingSystem parkingSystem = null;
 
         while (true) {
-            // Tampilkan menu utama setelah parkir berhasil atau ketika aplikasi pertama kali berjalan
-            displayMainMenu();
+            System.out.println("Input your command:");
+            String input = scanner.nextLine();
+            String[] commands = input.split(" ");
 
-            String choice = scanner.nextLine();
-
-            switch (choice) {
-                case "1": // create parking lot
-                    System.out.println("=========== parking system ===========");
-                    System.out.println("WARNING : This process will restart last data.");
-                    System.out.print("Create a parking lot\nenter slot available: ");
-                    int totalLots = Integer.parseInt(scanner.nextLine());
+            switch (commands[0]) {
+                case "create_parking_lot":
+                    int totalLots = Integer.parseInt(commands[1]);
                     parkingSystem = new ParkingSystem(totalLots);
-                    System.out.println("===================================");
                     System.out.println("Created a parking lot with " + totalLots + " slots");
-                    System.out.println("===================================");
-                    System.out.println("processing ...");
                     break;
 
-                case "2": // park vehicle
+                case "park":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter vehicle number: ");
-                        String regNumber = scanner.nextLine();
-                        System.out.print("Enter vehicle color: ");
-                        String color = scanner.nextLine();
-                        System.out.print("Enter vehicle type: ");
-                        String type = scanner.nextLine();
-                        System.out.println("===================================");
-                        System.out.println("processing ...");
+                        String regNumber = commands[1];
+                        String color = commands[2];
+                        String type = commands[3];
                         parkingSystem.parkVehicle(regNumber, color, type);
                     } else {
                         System.out.println("Parking lot has not been created.");
                     }
                     break;
 
-                case "3": // leave
+                case "leave":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter slot number to leave: ");
-                        int slotNumber = Integer.parseInt(scanner.nextLine());
-                        System.out.println("===================================");
-                        System.out.println("processing ...");
+                        int slotNumber = Integer.parseInt(commands[1]);
                         parkingSystem.leave(slotNumber);
                     }
                     break;
 
-                case "4": // status
+                case "status":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.println("Parking lot status");
-                        System.out.println("===================================");
                         parkingSystem.status();
                     }
                     break;
 
-                case "5": // type_of_vehicles
+                case "type_of_vehicles":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter vehicle type (Mobil/Motor): ");
-                        String type = scanner.nextLine();
-                        System.out.println("===================================");
+                        String type = commands[1];
                         parkingSystem.typeOfVehicles(type);
                     }
                     break;
 
-                case "6": // registration_numbers_for_vehicles_with_ood_plate
+                case "registration_numbers_for_vehicles_with_odd_plate":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
                         parkingSystem.registrationNumbersForVehiclesWithOddPlate();
                     }
                     break;
 
-                case "7": // registration_numbers_for_vehicles_with_event_plate
+                case "registration_numbers_for_vehicles_with_even_plate":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
                         parkingSystem.registrationNumbersForVehiclesWithEvenPlate();
                     }
                     break;
 
-                case "8": // registration_numbers_for_vehicles_with_colour
+                case "registration_numbers_for_vehicles_with_colour":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter vehicle color: ");
-                        String color = scanner.nextLine();
-                        System.out.println("===================================");
+                        String color = commands[1];
                         parkingSystem.registrationNumbersForVehiclesWithColor(color);
                     }
                     break;
 
-                case "9": // slot_numbers_for_vehicles_with_colour
+                case "slot_numbers_for_vehicles_with_colour":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter vehicle color: ");
-                        String slotColor = scanner.nextLine();
-                        System.out.println("===================================");
-                        parkingSystem.slotNumbersForVehiclesWithColor(slotColor);
+                        String color = commands[1];
+                        parkingSystem.slotNumbersForVehiclesWithColor(color);
                     }
                     break;
 
-                case "10": // slot_number_for_registration_number
+                case "slot_number_for_registration_number":
                     if (parkingSystem != null) {
-                        System.out.println("=========== parking system ===========");
-                        System.out.print("Enter registration number: ");
-                        String registration = scanner.nextLine();
-                        System.out.println("===================================");
-                        parkingSystem.slotNumberForRegistrationNumber(registration);
+                        String regNumber = commands[1];
+                        parkingSystem.slotNumberForRegistrationNumber(regNumber);
                     }
                     break;
 
-                case "11": // exit
+                case "exit":
                     System.out.println("Exiting...");
                     return;
 
                 default:
-                    System.out.println("Invalid choice, please try again.");
+                    System.out.println("Invalid command.");
             }
         }
-    }
-
-    // Method to display the main menu
-    public static void displayMainMenu() {
-        System.out.println("=========== parking system ===========");
-        System.out.println("Menu app:");
-        System.out.println("1. Create parking lot");
-        System.out.println("2. Park");
-        System.out.println("3. Leave");
-        System.out.println("4. Status");
-        System.out.println("5. Type of vehicles");
-        System.out.println("6. Registration numbers for vehicles with odd plate");
-        System.out.println("7. Registration numbers for vehicles with even plate");
-        System.out.println("8. Registration numbers for vehicles with colour");
-        System.out.println("9. Slot numbers for vehicles with colour");
-        System.out.println("10. Slot number for registration number");
-        System.out.println("11. Exit");
-        System.out.print("Your choice: ");
     }
 }
